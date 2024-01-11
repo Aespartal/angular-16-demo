@@ -1,0 +1,38 @@
+<div class="custom-chip-list">
+  <mat-chip-set>
+    <mat-chip (click)="toggleDropdown($event)" aria-label="Tipo" [ngClass]="{'selected': selectedOption}">
+      <mat-icon *ngIf="selectedOption && label" matChipAvatar>check</mat-icon>
+      {{ selectedOption ? selectedOption.name : label }}
+      <mat-icon *ngIf="!selectedOption" matChipTrailingIcon>arrow_drop_down</mat-icon>
+      <button *ngIf="selectedOption" matChipRemove aria-label="Remove chip" (click)="clearSelection()">
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </mat-chip>
+  </mat-chip-set>
+  <div class="custom-chip-listbox" *ngIf="dropdownOpen">
+    <!-- LIST BASIC -->
+    <ng-container *ngIf="controlType === FILTER_TYPE.LIST">
+      <mat-chip-listbox *ngIf="dropdownOpen && controlType === FILTER_TYPE.LIST">
+        <mat-chip-option *ngFor="let option of options" (click)="selectType(option)"
+          [selected]="option === selectedOption">
+          <span *ngIf="option"></span>{{ option.name }}
+        </mat-chip-option>
+      </mat-chip-listbox>
+    </ng-container>
+
+    <!-- AUTOCOMPLETE -->
+    <ng-container *ngIf="controlType === FILTER_TYPE.AUTOCOMPLETE">
+      <mat-form-field class="example-full-width">
+        <mat-label>{{ label }}</mat-label>
+        <input matInput [placeholder]="placeholder" #autoCompleteInput [matAutocomplete]="auto"
+          (keyup)="searchFilter()" />
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectType($event)">
+          <mat-option *ngFor="let option of optionsFiltered()" [value]="option">
+            {{ option.name }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
+    </ng-container>
+  </div>
+</div>

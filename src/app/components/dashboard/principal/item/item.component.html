@@ -1,0 +1,15 @@
+<mat-list role="list">
+  <mat-list-item role="listitem" *ngFor="let item of items">
+    {{item.name}} - ${{item.price}}
+    <button (click)="onFavouriteItem(item)" mat-icon-button [color]="!item.favourite ? 'basic' : 'warn'" aria-label="Example icon-button with a heart icon">
+      <mat-icon>favorite</mat-icon>
+    </button>
+    <button (click)="onRemoveItem(item)"  mat-icon-button>
+      <mat-icon>delete</mat-icon>
+    </button>
+  </mat-list-item>
+</mat-list>
+
+<span>
+  Total favoritos: {{totalFavourite()}}
+</span>

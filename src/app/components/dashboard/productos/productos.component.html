@@ -1,0 +1,29 @@
+<div class="container">
+  <app-filtros (deleteFilter)="deleteFilter()" (searchFilter)="searchFilter()">
+      <app-dynamic-control
+      [field]="'country'"
+      [controlType]="FILTER_TYPE.LIST"
+      placeholder="País"
+      label="País"
+      [options]="countryOptions"
+      (ngModelChange)="onTypeSelectionChange($event, 'country')"
+      (closeMenu)="closeMenu($event)"
+      #country
+    ></app-dynamic-control>
+
+    <app-dynamic-control
+    [field]="'year'"
+    [controlType]="FILTER_TYPE.AUTOCOMPLETE"
+    placeholder="Año"
+    label="Año"
+    [options]="yearOptions"
+    (ngModelChange)="onTypeSelectionChange($event, 'year')"
+    (closeMenu)="closeMenu($event)"
+    #year
+  ></app-dynamic-control>
+  </app-filtros>
+
+  {{
+    filterForm.value | json
+  }}
+</div>

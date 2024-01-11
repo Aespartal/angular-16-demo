@@ -1,0 +1,73 @@
+<div class="container">
+  <h1>Principal Component</h1>
+
+
+  <section>
+    <h2>Hello from {{ fullName() }}!</h2>
+    <button type="button" (click)="setName('Oscar')">
+      Change name
+    </button>
+  </section>
+
+
+
+  <section>
+    <!-- ACCORDEON CON MAT ACCORDION -->
+    <h2>Accordeon con mat-accordion</h2>
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            This is the expansion title
+          </mat-panel-title>
+          <mat-panel-description>
+            This is a summary of the content
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <p>This is the primary content of the panel.</p>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </section>
+  <section>
+    <!-- ITEMS CON APP-ITEM -->
+    <h2>Items con app-item</h2>
+    <div *ngIf="isLoading()">
+      <mat-spinner></mat-spinner>
+    </div>
+    <app-item [items]="itemList()" (removeItem)="onRemoveItem($event)" *ngIf="!isLoading()"></app-item>
+    Total Price: ${{totalPrice()}}
+    <button type="button" (click)="addItem()">Add item</button>
+  </section>
+  <section>
+    <!-- TABLA CON MAT TABLE Y CHECKBOX -->
+    <h2>Tabla con mat-table</h2>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <!-- Definiciones de columnas -->
+      <ng-container matColumnDef="toggle">
+        <th mat-header-cell *matHeaderCellDef>
+          <mat-checkbox (change)="masterToggle()" [checked]="isAllSelected()">
+          </mat-checkbox>
+        </th>
+        <td mat-cell *matCellDef="let element">
+          <mat-checkbox (change)="toggleSelection(element)" [checked]="selection.isSelected(element)">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>
+          Nombre
+        </th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.name }}
+        </td>
+      </ng-container>
+
+      <!-- Definición de encabezado -->
+      <tr mat-header-row *matHeaderRowDef="['toggle', 'name']"></tr>
+
+      <!-- Definición de fila -->
+      <tr mat-row *matRowDef="let row; columns: ['toggle', 'name']"></tr>
+    </table>
+  </section>
+</div>
+
